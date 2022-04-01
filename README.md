@@ -4,7 +4,7 @@ This package contains type definitions for Neutralinojs (https://neutralino.js.o
 
 **Disclaimer:** This is not an official package of Neutralinojs.
 
-## Usage
+## Installation
 
 Install the package in the npm registry.
 
@@ -12,7 +12,7 @@ Install the package in the npm registry.
 npm install --save-dev neutralinojs-types
 ```
 
-To enable the type definitions, you can create a script in your codebase and add this line. You can also import it in your `main.js` file.
+If the types do not appear in autocomplete, you can create a script in your codebase and add this line. You can also import it in your `main.js` file.
 ```ts
 import 'neutralinojs-types'
 ```
