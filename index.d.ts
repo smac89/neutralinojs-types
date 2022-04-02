@@ -126,10 +126,8 @@ declare global {
          * `Neutralino.events` namespace contains methods related to the native events handling. These events are often initiated by the Neutralinojs server based on native state changes.
          */
         namespace events {
-            type EventName = 'ready' | 'trayMenuItemClicked' | 'windowClose' | 'serverOffline' | 'clientConnect' | 'clientDisconnect' | 'appClientConnect' | 'appClientDisconnect' | 'extClientConnect' | 'extClientDisconnect' | 'extensionReady'
-            
-            type Handler = (data?: Object) => void
-    
+            type Handler<T> = (event?: CustomEvent<T>) => void
+
             /**
              * Registers a new event handler. 
              * @param eventName Name of the event.
@@ -140,8 +138,18 @@ declare global {
              * }
              * await Neutralino.events.on('trayMenuItemClicked', onTrayMenuItemClicked);
              */
-            function on(eventName: EventName, handler: Handler): Promise<void>
-            function on(eventName: string, handler: Handler): Promise<void>
+            function on(eventName: 'ready', handler: Handler<null>): Promise<void>
+            function on(eventName: 'trayMenuItemClicked', handler: Handler<Neutralino.os.TrayMenuItem>): Promise<void>
+            function on(eventName: 'windowClose', handler: Handler<null>): Promise<void>
+            function on(eventName: 'serverOffline', handler: Handler<null>): Promise<void>
+            function on(eventName: 'clientConnect', handler: Handler<number>): Promise<void>
+            function on(eventName: 'clientDisconnect', handler: Handler<number>): Promise<void>
+            function on(eventName: 'appClientConnect', handler: Handler<number>): Promise<void>
+            function on(eventName: 'appClientDisconnect', handler: Handler<number>): Promise<void>
+            function on(eventName: 'extClientConnect', handler: Handler<string>): Promise<void>
+            function on(eventName: 'extClientDisconnect', handler: Handler<string>): Promise<void>
+            function on(eventName: 'extensionReady', handler: Handler<string>): Promise<void>
+            function on<T>(eventName: string, handler: Handler<T>): Promise<void>
     
             /**
              * Unregisters an event handler.
@@ -150,8 +158,18 @@ declare global {
              * @example
              * await Neutralino.events.off('trayMenuItemClicked', onTrayMenuItemClicked);
              */
-            function off(eventName: EventName, handler: Handler): Promise<void>
-            function off(eventName: string, handler: Handler): Promise<void>
+             function off(eventName: 'ready', handler: Handler<null>): Promise<void>
+             function off(eventName: 'trayMenuItemClicked', handler: Handler<Neutralino.os.TrayMenuItem>): Promise<void>
+             function off(eventName: 'windowClose', handler: Handler<null>): Promise<void>
+             function off(eventName: 'serverOffline', handler: Handler<null>): Promise<void>
+             function off(eventName: 'clientConnect', handler: Handler<number>): Promise<void>
+             function off(eventName: 'clientDisconnect', handler: Handler<number>): Promise<void>
+             function off(eventName: 'appClientConnect', handler: Handler<number>): Promise<void>
+             function off(eventName: 'appClientDisconnect', handler: Handler<number>): Promise<void>
+             function off(eventName: 'extClientConnect', handler: Handler<string>): Promise<void>
+             function off(eventName: 'extClientDisconnect', handler: Handler<string>): Promise<void>
+             function off(eventName: 'extensionReady', handler: Handler<string>): Promise<void>
+             function off<T>(eventName: string, handler: Handler<T>): Promise<void>
     
             /**
              * Dispatches a new event to the current app instance. Neutralinojs client uses this JavaScript function call internally to dispatch native events. 
@@ -160,8 +178,18 @@ declare global {
              * @example
              * await Neutralino.events.dispatch('myTestEvent', {myData: 'Test data'});
              */
-            function dispatch(eventName: EventName, data?: Object): Promise<void>
-            function dispatch(eventName: string, data?: Object): Promise<void>
+            function dispatch(eventName: 'ready', data: null): Promise<void>
+            function dispatch(eventName: 'trayMenuItemClicked', data: Neutralino.os.TrayMenuItem): Promise<void>
+            function dispatch(eventName: 'windowClose', data: null): Promise<void>
+            function dispatch(eventName: 'serverOffline', data: null): Promise<void>
+            function dispatch(eventName: 'clientConnect', data: number): Promise<void>
+            function dispatch(eventName: 'clientDisconnect', data: number): Promise<void>
+            function dispatch(eventName: 'appClientConnect', data: number): Promise<void>
+            function dispatch(eventName: 'appClientDisconnect', data: number): Promise<void>
+            function dispatch(eventName: 'extClientConnect', data: string): Promise<void>
+            function dispatch(eventName: 'extClientDisconnect', data: string): Promise<void>
+            function dispatch(eventName: 'extensionReady', data: string): Promise<void>
+            function dispatch(eventName: string, data: any): Promise<void>
     
             /**
              * Dispatches a new event to all clients (both app and extension clients).
@@ -174,8 +202,18 @@ declare global {
              * 
              * await Neutralino.events.broadcast('myTestEvent'); // without any data payload
              */
-            function broadcast(eventName: EventName, data?: Object): Promise<void>
-            function broadcast(eventName: string, data?: Object): Promise<void>
+             function broadcast(eventName: 'ready', data: null): Promise<void>
+             function broadcast(eventName: 'trayMenuItemClicked', data: Neutralino.os.TrayMenuItem): Promise<void>
+             function broadcast(eventName: 'windowClose', data: null): Promise<void>
+             function broadcast(eventName: 'serverOffline', data: null): Promise<void>
+             function broadcast(eventName: 'clientConnect', data: number): Promise<void>
+             function broadcast(eventName: 'clientDisconnect', data: number): Promise<void>
+             function broadcast(eventName: 'appClientConnect', data: number): Promise<void>
+             function broadcast(eventName: 'appClientDisconnect', data: number): Promise<void>
+             function broadcast(eventName: 'extClientConnect', data: string): Promise<void>
+             function broadcast(eventName: 'extClientDisconnect', data: string): Promise<void>
+             function broadcast(eventName: 'extensionReady', data: string): Promise<void>
+             function broadcast(eventName: string, data: any): Promise<void>
         }
     
         /**
@@ -195,7 +233,7 @@ declare global {
              * await Neutralino.extensions.dispatch('js.neutralino.sampleextension',
              *             'myTestEvent');
              */
-            function dispatch(extensionId: string, eventName: string, data?: Object)
+            function dispatch(extensionId: string, eventName: string, data?: any): Promise<void>
     
             /**
              * Dispatches a new event to all connected extensions. If an extension is loaded but not connected yet, the particular extension won't get the new event. Use [extensions.dispatch](https://neutralino.js.org/docs/api/extensions#extensionsdispatchextensionid-eventname-data) to send messages even if the extension is not connected to the main process.
@@ -208,7 +246,7 @@ declare global {
              * 
              * await Neutralino.extensions.broadcast('myTestEvent');
              */
-            function broadcast(eventName: string, data?: Object): Promise<void>
+            function broadcast(eventName: string, data?: any): Promise<void>
     
             /**
              * Returns details about connected and loaded extensions.
