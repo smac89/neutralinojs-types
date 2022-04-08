@@ -2,7 +2,7 @@
 
 This package contains type definitions for Neutralinojs (https://neutralino.js.org/).
 
-At the time of writing this, `neu create <name>` does not include type definitions. You could build Neutralinojs from its [repository](https://github.com/neutralinojs/neutralinojs) and get the official types but it doesn't completely implement the [documentation](https://neutralino.js.org/docs/api/overview).
+At the time of writing this, `neu create <name>` does not include type definitions. You could build Neutralinojs from its [repository](https://github.com/neutralinojs/neutralino.js) and get the official types but it does not completely implement the [documentation](https://neutralino.js.org/docs/api/overview).
 
 ## Installation
 
