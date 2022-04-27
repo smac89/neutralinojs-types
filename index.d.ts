@@ -1140,4 +1140,14 @@ declare global {
      * Returns `true` if extensions are enabled
      */
     const NL_EXTENABLED: boolean
+
+    /**
+     * Framework binary's release commit hash
+     */
+    const NL_COMMIT: boolean
+
+    /**
+     * 	Client library's release commit hash
+     */
+    const NL_CCOMMIT: boolean
 }
