@@ -1075,74 +1075,74 @@ declare global {
             function create(url: string, options?: WindowOptions): Promise<ProcessInfo>
         }
     }
-    
+
     /**
      * Operating system name: `Linux`, `Windows`, or `Darwin`
      */
-    const NL_OS: 'Linux' | 'Windows' | 'Darwin'
-    
+    var NL_OS: 'Linux' | 'Windows' | 'Darwin'
+
     /**
      * Application identifier
      */
-    const NL_APPID: string
-    
+    var NL_APPID: string
+
     /**
      * Application version
      */
-    const NL_APPVERSION: string
-    
+    var NL_APPVERSION: string
+
     /**
      * 	Application port
      */
-    const NL_PORT: number
-    
+    var NL_PORT: number
+
     /**
      * Mode of the application: `window`, `browser, `cloud`, or `chrome`
      */
-    const NL_MODE: 'window' | 'browser' | 'cloud' | 'chrome'
-    
+    var NL_MODE: 'window' | 'browser' | 'cloud' | 'chrome'
+
     /**
      * Neutralinojs server version
      */
-    const NL_VERSION: string
-    
+    var NL_VERSION: string
+
     /**
      * Neutralinojs client version
      */
-    const NL_CVERSION: string
-    
+    var NL_CVERSION: string
+
     /**
      * Current working directory
      */
-    const NL_CWD: string
-    
+    var NL_CWD: string
+
     /**
      * Application path
      */
-    const NL_PATH: string
-    
+    var NL_PATH: string
+
     /**
      * Command-line arguments
      */
-    const NL_ARGS: string[]
-    
+    var NL_ARGS: string[]
+
     /**
      * Identifier of the current process
      */
-    const NL_PID: string
-    
+    var NL_PID: string
+
     /**
      * Source of application resources: `bundle` or `directory`
      */
-    const NL_RESMODE: 'bundle' | 'directory'
-    
+    var NL_RESMODE: 'bundle' | 'directory'
+
     /**
      * Returns `true` if extensions are enabled
      */
-    const NL_EXTENABLED: boolean
-    
+    var NL_EXTENABLED: boolean
+
     /**
      * 	Client library's release commit hash
      */
-    const NL_CCOMMIT: string
+    var NL_CCOMMIT: string
 }
