@@ -37,23 +37,23 @@ declare global {
              * await Neutralino.app.exit();
              */
             function exit(exitCode?: number): Promise<void>
-    
+
             /**
              * Kills the application process. If the application becomes unresponsive, you can use this to terminate the process instantly. It is recommended to use the `exit()` method to close your application properly.
              * @example
              * await Neutralino.app.killProcess();
              */
             function killProcess(): Promise<void>
-    
+
             /**
              * Restarts the current application instance.
              * @example
              * await Neutralino.app.restartProcess();
-             * 
+             *
              * await Neutralino.app.restartProcess({ args: '--restarted' });
              */
             function restartProcess(options?: RestartOptions): Promise<void>
-    
+
             /**
              * Returns the current application configuration as a JSON object.
              * @returns The current application configuration. Sometimes, this configuration object is not identical to your configuration file because the framework updates the configuration during several situations such as config overriding via CLI arguments and using `0` as the port.
@@ -62,35 +62,35 @@ declare global {
              * console.log('URL = ', config.url);
              */
             function getConfig(): Promise<any>
-    
+
             /**
              * Dispatches a new event to all app instances.
              * @param eventName Name of the event.
              * @param data Additional data for the event.
              * @example
              * await Neutralino.app.broadcast('myTestEvent', 'Hello');
-             * 
+             *
              * await Neutralino.app.broadcast('myTestEvent', {myData: 'Test data'});
-             * 
+             *
              * await Neutralino.app.broadcast('myTestEvent');
              */
             function broadcast(eventName: string, data?: any): Promise<void>
         }
-    
+
         /**
          * `Neutralino.clipboard` namespace offers functions to access system clipboard.
          */
         namespace clipboard {
             /**
-             * Writes data into Neutralinojs shared storage. 
+             * Writes data into Neutralinojs shared storage.
              * @param text Text to store into the system clipboard.
              * @example
              * await Neutralino.clipboard.writeText('Test value');
              */
             function writeText(text: string): Promise<void>
-    
+
             /**
-             * Reads and returns text from system clipboard. 
+             * Reads and returns text from system clipboard.
              * @returns Stored text from the system clipboard.
              * @example
              * let clipboardText = await Neutralino.clipboard.readText();
@@ -98,7 +98,7 @@ declare global {
              */
             function readText(): Promise<string>
         }
-    
+
         /**
          * `Neutralino.computer` namespace contains methods related to the user's hardware.
          */
@@ -122,25 +122,25 @@ declare global {
              */
             function getMemoryInfo(): Promise<MemoryInfo>
         }
-    
+
         /**
          * `Neutralino.debug` namespace contains application debugging utilities.
          */
         namespace debug {
             /**
-             * Writes messages to `neutralinojs.log` file or/and standard output streams. 
+             * Writes messages to `neutralinojs.log` file or/and standard output streams.
              * @param message Content to be logged.
              * @param type Type of the message. Accepted values are `INFO`, `WARNING`, and `ERROR`. The default value is `INFO`.
              * @example
              * await Neutralino.debug.log('Hello Neutralinojs');
-             * 
+             *
              * await Neutralino.debug.log('An error occured', 'ERROR');
-             * 
+             *
              * await Neutralino.debug.log('A warning message', 'WARNING');
              */
             function log(message: string, type?: 'INFO' | 'WARNING' | 'ERROR'): Promise<void>
         }
-    
+
         /**
          * `Neutralino.events` namespace contains methods related to the native events handling. These events are often initiated by the Neutralinojs server based on native state changes.
          */
@@ -151,7 +151,7 @@ declare global {
                 message: string
             }
             /**
-             * Registers a new event handler. 
+             * Registers a new event handler.
              * @param eventName Name of the event.
              * @param handler A function that will be called when the given event occurs. Neutralinojs will call the handler with a [CustomEvent](https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent) instance by attaching additional data to the `detail` key.
              * @example
@@ -172,7 +172,7 @@ declare global {
             function on(eventName: 'extClientDisconnect', handler: Handler<string>): Promise<Response>
             function on(eventName: 'extensionReady', handler: Handler<string>): Promise<Response>
             function on<T>(eventName: string, handler: Handler<T>): Promise<Response>
-    
+
             /**
              * Unregisters an event handler.
              * @param eventName Name of the event.
@@ -192,9 +192,9 @@ declare global {
              function off(eventName: 'extClientDisconnect', handler: Handler<string>): Promise<Response>
              function off(eventName: 'extensionReady', handler: Handler<string>): Promise<Response>
              function off<T>(eventName: string, handler: Handler<T>): Promise<Response>
-    
+
             /**
-             * Dispatches a new event to the current app instance. Neutralinojs client uses this JavaScript function call internally to dispatch native events. 
+             * Dispatches a new event to the current app instance. Neutralinojs client uses this JavaScript function call internally to dispatch native events.
              * @param event Name of the event.
              * @param data Additional data for the event.
              * @example
@@ -212,16 +212,16 @@ declare global {
             function dispatch(event: 'extClientDisconnect', data: string): Promise<Response>
             function dispatch(event: 'extensionReady', data: string): Promise<Response>
             function dispatch(event: string, data?: any): Promise<Response>
-    
+
             /**
              * Dispatches a new event to all clients (both app and extension clients).
              * @param event Name of the event.
              * @param data Additional data for the event.
              * @example
              * await Neutralino.events.broadcast('myTestEvent', 'Hello');
-             * 
+             *
              * await Neutralino.events.broadcast('myTestEvent', {myData: 'Test data'});
-             * 
+             *
              * await Neutralino.events.broadcast('myTestEvent'); // without any data payload
              */
              function broadcast(event: 'ready', data: null): Promise<void>
@@ -237,10 +237,10 @@ declare global {
              function broadcast(event: 'extensionReady', data: string): Promise<void>
              function broadcast(event: string, data?: any): Promise<void>
         }
-    
+
         /**
          * `Neutralino.extensions` namespace contains methods related to Neutralino extensions. Extensions let developers write custom backend APIs for Neutralinojs applications.
-         * 
+         *
          * Learn more about extensions with [this guide](https://neutralino.js.org/docs/how-to/extensions-overview).
          */
         namespace extensions {
@@ -267,20 +267,20 @@ declare global {
              *             'myTestEvent');
              */
             function dispatch(extensionId: string, eventName: string, data?: any): Promise<void>
-    
+
             /**
              * Dispatches a new event to all connected extensions. If an extension is loaded but not connected yet, the particular extension won't get the new event. Use [extensions.dispatch](https://neutralino.js.org/docs/api/extensions#extensionsdispatchextensionid-eventname-data) to send messages even if the extension is not connected to the main process.
              * @param eventName Name of the event.
              * @param data Additional data for the event.
              * @example
              * await Neutralino.extensions.broadcast('myTestEvent', 'Hello');
-             * 
+             *
              * await Neutralino.extensions.broadcast('myTestEvent', {myData: 'Test data'});
-             * 
+             *
              * await Neutralino.extensions.broadcast('myTestEvent');
              */
             function broadcast(eventName: string, data?: any): Promise<void>
-    
+
             /**
              * Returns details about connected and loaded extensions.
              * @example
@@ -324,11 +324,11 @@ declare global {
              * @param path New directory path.
              * @example
              * await Neutralino.filesystem.createDirectory('./newDirectory');
-             * 
+             *
              * await Neutralino.filesystem.createDirectory(NL_PATH + '/myFolder');
              */
             function createDirectory(path: string): Promise<void>
-    
+
             /**
              * Removes a given directory. Throws `NE_FS_RMDIRER` if the removal is not possible.
              * @param path Directory path.
@@ -336,7 +336,7 @@ declare global {
              * await Neutralino.filesystem.removeDirectory('./tmpDirectory');
              */
             function removeDirectory(path: string): Promise<void>
-    
+
             /**
              * Writes a text file. Throws `NE_FS_FILWRER` for file write errors.
              * @param filename Filename.
@@ -345,7 +345,7 @@ declare global {
              * await Neutralino.filesystem.writeFile('./myFile.txt', 'Sample content');
              */
             function writeFile(filename: string, data: string): Promise<void>
-    
+
             /**
              * Appends text content to file. Throws `NE_FS_FILWRER` for file write errors. If the provided file doesn't exist, this function creates a new file with `data`.
              * @param filename Filename.
@@ -355,7 +355,7 @@ declare global {
              * await Neutralino.filesystem.appendFile('./myFile.txt', 'content');
              */
             function appendFile(filename: string, data: string): Promise<void>
-    
+
             /**
              * Writes a binary file. Throws `NE_FS_FILWRER` for file write errors.
              * @param filename Filename.
@@ -364,11 +364,11 @@ declare global {
              * let rawBin = new ArrayBuffer(1);
              * let view = new Uint8Array(rawBin);
              * view[0] = 64; // Saves ASCII '@' to the binary file
-             * 
+             *
              * await Neutralino.filesystem.writeBinaryFile('./myFile.bin', rawBin);
              */
             function writeBinaryFile(filename: string, data: ArrayBuffer): Promise<void>
-    
+
             /**
              * Appends binary data to a file. Throws `NE_FS_FILWRER` for file write errors. If the provided file doesn't exist, this function creates a new file with `data`.
              * @param filename Filename.
@@ -377,12 +377,12 @@ declare global {
              * let rawBin = new ArrayBuffer(1);
              * let view = new Uint8Array(rawBin);
              * view[0] = 64; // Saves ASCII '@' to the binary file
-             * 
+             *
              * await Neutralino.filesystem.appendBinaryFile('./myFile.bin', rawBin);
              * await Neutralino.filesystem.appendBinaryFile('./myFile.bin', rawBin);
              */
             function appendBinaryFile(filename: string, data: ArrayBuffer): Promise<void>
-    
+
             /**
              * Reads a text file. Throws `NE_FS_FILRDER` for file read errors.
              * @param filename Filename.
@@ -392,7 +392,7 @@ declare global {
              * console.log(`Content: ${data}`);
              */
             function readFile(filename: string): Promise<string>
-    
+
             /**
              * Reads binary files. Throws `NE_FS_FILRDER` for file read errors.
              * @param filename Filename.
@@ -402,11 +402,11 @@ declare global {
              *   fileName: './myFile.bin'
              * });
              * let view = new Uint8Array(data);
-             * 
+             *
              * console.log('Binary content: ', view);
              */
             function readBinaryFile(filename: string): Promise<ArrayBuffer>
-    
+
             /**
              * Removes given file. Throws `NE_FS_FILRMER` for file removal errors.
              * @param filename Filename.
@@ -414,7 +414,7 @@ declare global {
              * await Neutralino.filesystem.removeFile('./myFile.txt');
              */
             function removeFile(filename: string): Promise<void>
-            
+
             /**
              * Reads directory contents. Throws `NE_FS_NOPATHE` if the path doesn't exist.
              * @param path File/directory path.
@@ -423,7 +423,7 @@ declare global {
              * console.log('Content: ', entries);
              */
             function readDirectory(path: string): Promise<DirectoryEntry[]>
-    
+
             /**
              * Copies a file to a new destination. Throws `NE_FS_COPYFER` if the system cannot copy the file.
              * @param source Source path.
@@ -432,7 +432,7 @@ declare global {
              * await Neutralino.filesystem.copyFile('./source.txt', './destination.txt');
              */
             function copyFile(source: string, destination: string): Promise<void>
-    
+
             /**
              * Moves a file to a new destination. Throws `NE_FS_MOVEFER` if the system cannot move the file.
              * @param source Source path.
@@ -441,7 +441,7 @@ declare global {
              * await Neutralino.filesystem.moveFile('./source.txt', './destination.txt');
              */
             function moveFile(source: string, destination: string): Promise<void>
-    
+
             /**
              * Returns file statistics for the given path. If the given path doesn't exist or is inaccessible,`NE_FS_NOPATHE` is thrown. Therefore, you can use this method to check for the existance of a file or directory.
              * @param path File or directory path.
@@ -451,32 +451,32 @@ declare global {
              */
             function getStats(path: string): Promise<Stats>
         }
-    
+
         /**
          * `init` is not a namespace, it's a function that initializes a Neutralinojs application.
-         * 
+         *
          * The application developer needs to call this method explicitly via a JavaScript source file before using any native API function. The `init` function does the following tasks when it's called.
          * - Starts a WebSocket connection with the Neutralinojs server asynchronously.
          * - Registers auto-reload event handler if the `--neu-dev-auto-reload` flag (the `neu run` command sets this flag) is provided.
          * - Defines `NL_CVERSION` with the client libary version in the window scope.
-         * 
+         *
          * You can call native API calls right after the `init` function call, as shown below.
          * @example
          * Neutralino.init();
-         * 
+         *
          * Neutralino.os.showMessageBox('Welcome', 'Hello Neutralinojs');
          *
          * @description Also, you can wrap immediate native calls with the `ready` event callback if you like.
-         * 
+         *
          * @example
          * Neutralino.init();
-         * 
+         *
          * Neutralino.events.on('ready', () => {
          *     Neutralino.os.showMessageBox('Welcome', 'Hello Neutralinojs');
          * });
          */
         function init(): void
-    
+
         /**
          * `Neutralino.os` namespace contains methods related to the user's operating system.
          */
@@ -582,11 +582,11 @@ declare global {
              * @example
              * let info = await Neutralino.os.execCommand('python --version');
              * console.log(`Your Python version: ${info.stdOut}`);
-             * 
+             *
              * await Neutralino.os.execCommand('npm start', { background: true });
              */
             function execCommand(command: string, options?: ExecCommandOptions): Promise<ExecCommandResult>
-    
+
             /**
              * Provides the value of a given environment variable.
              * @param key The name of the environment variable.
@@ -596,7 +596,7 @@ declare global {
              * console.log(`USER = ${value}`);
              */
             function getEnv(key: string): Promise<string>
-    
+
             /**
              * Shows the file open dialog.
              * @param title Title of the dialog.
@@ -611,7 +611,7 @@ declare global {
              * console.log('You have selected:', entries);
              */
             function showOpenDialog(title?: string, options?: OpenDialogOptions): Promise<string[]>
-    
+
             /**
              * Shows the file open dialog.
              * @param title Title of the dialog.
@@ -626,7 +626,7 @@ declare global {
              * console.log('You have selected:', entry);
              */
             function showSaveDialog(title?: string, options?: SaveDialogOptions): Promise<string>
-    
+
             /**
              * Shows the folder open dialog.
              * @param title Title of the dialog.
@@ -636,7 +636,7 @@ declare global {
              * console.log('You have selected:', entry);
              */
             function showFolderDialog(title?: string): Promise<string>
-    
+
             /**
              * Displays a notification message.
              * @param title Notification title.
@@ -644,11 +644,11 @@ declare global {
              * @param icon Icon name. Accepted values are: `INFO`, `WARNING`, `ERROR`, and `QUESTION`. The default value is `INFO`.
              * @example
              * await Neutralino.os.showNotification('Hello world', 'It works!. Have a nice day');
-             * 
+             *
              * await Neutralino.os.showNotification('Oops :/', 'Something went wrong', 'ERROR');
              */
             function showNotification(title: string, content: string, icon?: Icon): Promise<void>
-            
+
             /**
              * Displays a message box.
              * @param title Title of the message box.
@@ -658,7 +658,7 @@ declare global {
              * @returns User's `choice`.
              * @example
              * await Neutralino.os.showMessageBox('Hello', 'Welcome');
-             * 
+             *
              * let button = await Neutralino.os
              *             .showMessageBox('Confirm',
              *                             'Are you sure you want to quit?',
@@ -668,7 +668,7 @@ declare global {
              * }
              */
             function showMessageBox(title: string, content: string, choice?: 'OK' | 'OK_CANCEL' | 'YES_NO' | 'YES_NO_CANCEL' | 'RETRY_CANCEL' | 'ABORT_RETRY_IGNORE', icon?: Icon): Promise<string>
-    
+
             /**
              * Creates/updates the tray icon and menu.
              * @example
@@ -680,11 +680,11 @@ declare global {
              *     {id: "quit", text: "Quit"}
              *   ]
              * };
-             * 
-             * await Neutralino.os.setTray(tray); 
+             *
+             * await Neutralino.os.setTray(tray);
              */
             function setTray(options: TrayOptions): Promise<void>
-    
+
             /**
              * Returns known platform-specific folders such as Downloads, Music, Videos, etc.
              * @param name Name of the folder. Accepted values are: `config`, `data`, `cache`, `documents`, `pictures`, `music`, `video`, `downloads`, `savedGames1`, and `savedGames2`. Throws `NE_OS_INVKNPT` for invalid folder names.
@@ -694,10 +694,10 @@ declare global {
              * console.log(`Downloads folder: ${downloadsPath}`);
              */
             function getPath(name: 'config' | 'data' | 'cache' | 'documents' | 'pictures' | 'music' | 'video' | 'downloads' | 'savedGames1' | 'savedGames2'): Promise<string>
-            
+
             /**
-             * Opens a URL with the default web browser. 
-             * 
+             * Opens a URL with the default web browser.
+             *
              * If your application is running in the default web browser, this method will open a new tab.
              * @param url URL to be opened.
              * @example
@@ -710,7 +710,7 @@ declare global {
          */
         namespace storage {
             /**
-             * Writes data into Neutralinojs shared storage. 
+             * Writes data into Neutralinojs shared storage.
              * @param key A unique identifier.
              * @param data  Data as a string. If this value is `null` or `undefined`, the specific data record will be erased from the disk.
              * @example
@@ -719,9 +719,9 @@ declare global {
              * );
              */
             function setData(key: string, data: string): Promise<void>
-            
+
             /**
-             * Reads and returns data for a given Neutralinojs shared storage key. 
+             * Reads and returns data for a given Neutralinojs shared storage key.
              * @param key Storage data record identifier.
              * @returns Data string of the storage record.
              * @example
@@ -732,7 +732,7 @@ declare global {
         }
         /**
          * `Neutralino.updater` namespace contains methods related to built-in automatic updater. Neutralinojs offers a built-in client-based updating mechanism. Therefore, you can update Neutralinojs apps without even calling third-party update services, operating system level services, or other binaries/scripts.
-         * 
+         *
          * Learn more about extensions with this [guide](https://neutralino.js.org/docs/how-to/auto-updater).
          */
         namespace updater {
@@ -751,13 +751,13 @@ declare global {
              * let manifest = await Neutralino.updater.checkForUpdates(url);
              */
             function checkForUpdates(url: string): Promise<Manifest>
-            
+
             /**
              * Installs updates from the downloaded update manifest. Throws `NE_UP_UPDNOUF` if the manifest isn't loaded. If the update installation process fails, this function will throw `NE_UP_UPDINER`.
              * @example
              * let url = 'https://example.com/updates/manifest.json';
              * let manifest = await Neutralino.updater.checkForUpdates(url);
-             * 
+             *
              * if (manifest.version != NL_APPVERSION) {
              *     await Neutralino.updater.install();
              * }
@@ -886,7 +886,7 @@ declare global {
              * await Neutralino.window.setTitle('New title');
              */
             function setTitle(title: string): Promise<void>
-            
+
             /**
              * Returns the title of the native window.
              * @returns The current title of the native window instance.
@@ -895,28 +895,28 @@ declare global {
              * console.log(`title = ${title}`);
              */
             function getTitle(): Promise<string>
-            
+
             /**
              * Minimizes the native window.
              * @example
              * await Neutralino.window.minimize();
              */
             function minimize(): Promise<void>
-            
+
             /**
              * Maximizes the native window.
              * @example
              * await Neutralino.window.maximize();
              */
             function maximize(): Promise<void>
-            
+
             /**
              * Restores the native window.
              * @example
              * await Neutralino.window.unmaximize();
              */
             function unmaximize(): Promise<void>
-            
+
             /**
              * Returns `true` if the native window is maximized.
              * @returns `true` or `false` based on current maximized status.
@@ -924,21 +924,21 @@ declare global {
              * let status = await Neutralino.window.isMaximized();
              */
             function isMaximized(): Promise<boolean>
-            
+
             /**
              * Enables the full screen mode.
              * @example
              * await Neutralino.window.setFullScreen();
              */
             function setFullScreen(): Promise<void>
-            
+
             /**
              * Exits from the full screen mode.
              * @example
              * await Neutralino.window.exitFullScreen();
              */
             function exitFullScreen(): Promise<void>
-            
+
             /**
              * Returns `true` if the native window is in the full screen mode.
              * @returns `true` or `false` based on current full screen status.
@@ -946,21 +946,21 @@ declare global {
              * let status = await Neutralino.window.isFullScreen();
              */
             function isFullScreen(): Promise<boolean>
-            
+
             /**
              * Shows the native window.
              * @example
              * await Neutralino.window.show();
              */
             function show(): Promise<void>
-            
+
             /**
              * Hides the native window.
              * @example
              * await Neutralino.window.hide();
              */
             function hide(): Promise<void>
-            
+
             /**
              * Returns `true` if the native window is visible.
              * @returns `true` or `false` based on current visibility status.
@@ -968,23 +968,23 @@ declare global {
              * let status = await Neutralino.window.isVisible();
              */
             function isVisible(): Promise<boolean>
-            
+
             /**
              * Focuses the native window.
              * @example
              * await Neutralino.window.focus();
              */
             function focus(): Promise<void>
-            
+
             /**
-             * Activates or deactivates the always on top mode. 
+             * Activates or deactivates the always on top mode.
              * @param onTop Says whether the on top mode should be activated or not. The default value is `true`.
              * @example
              * await Neutralino.window.setAlwaysOnTop(true); // or setAlwaysOnTop();
              * await Neutralino.window.setAlwaysOnTop(false);
              */
             function setAlwaysOnTop(onTop: boolean): Promise<void>
-            
+
             /**
              * Moves the native window into given coordinates. Neutralinojs's cross-platform coordinate system starts from top-left corner of the screen. In other words, `x=0,y=0` point refers to the top-left corner of the device's main screen.
              * @param x A integer value for the horizontal position.
@@ -993,16 +993,16 @@ declare global {
              * await Neutralino.window.move(200, 400);
              */
             function move(x: number, y: number): Promise<void>
-            
+
             /**
-             * Sets an icon for the native window or Dock. 
+             * Sets an icon for the native window or Dock.
              * @param icon A `200x200` PNG image file works fine on all supported operating systems.
              * @example
              * const icon = '/resources/icons/appIcon.png';
              * await Neutralino.window.setIcon(icon);
              */
             function setIcon(icon: string): Promise<void>
-            
+
             /**
              * Converts a given DOM element to a draggable region. The user will be able to drag the native window by dragging the given DOM element. This feature is suitable to make custom window bars along with the [borderless mode](https://neutralino.js.org/docs/configuration/neutralino.config.json#modeswindowborderless-boolean).
              * @param domId A DOM element identifier.
@@ -1010,7 +1010,7 @@ declare global {
              * await Neutralino.window.setDraggableRegion('myCustomTitleBar');
              */
             function setDraggableRegion(domId: string | HTMLElement): Promise<void>
-            
+
             /**
              * Converts a draggable region to a normal DOM elements by removing drag event handlers.
              * @param domId A DOM element identifier.
@@ -1018,10 +1018,10 @@ declare global {
              * await Neutralino.window.unsetDraggableRegion('myCustomTitleBar');
              */
             function unsetDraggableRegion(domId: string | HTMLElement): Promise<void>
-            
+
             /**
              * This method sets the size of the window.
-             * 
+             *
              * This method always expects width and height couples. For example, if you are setting `minWidth`, you should set `minHeight` too.
              * @example
              * await Neutralino.window.setSize({
@@ -1030,34 +1030,34 @@ declare global {
              *     maxWidth: 600,
              *     maxHeight: 400
              * });
-             * 
+             *
              * await Neutralino.window.setSize({
              *     resizable: false
              * });
              */
             function setSize(options: WindowSizeOptions): Promise<void>
-            
+
             /**
              * Returns window size information.
              * @example
              * let sizeInfo = await Neutralino.window.getSize();
-             * 
+             *
              * console.log(sizeInfo);
              */
             function getSize(): Promise<WindowOptions>
-            
+
             /**
              * Returns window position coordinates.
              * @example
              * let position = await Neutralino.window.getPosition();
-             * 
+             *
              * console.log(position);
              */
             function getPosition(): Promise<WindowPosOptions>
-            
+
             /**
              * Creates a native window. You can use this method to create new window for your multi-window Neutralinojs app. Neutralinojs spawns a new process for each native window. Therefore, the new window works as an isolated app once the window is created.
-             * 
+             *
              * However, you can build communication streams between windows with the [storage API](https://neutralino.js.org/docs/api/storage).
              * @param url URL to be loaded. Eg: `/resources/aboutWindow.html`.
              * @param options an instance of `WindowOption` type.
