@@ -95,7 +95,7 @@ declare namespace Neutralino {
          *
          * await Neutralino.app.broadcast('myTestEvent');
          */
-        function broadcast(eventName: string, data?: any): Promise<void>;
+        function broadcast<T>(eventName: string, data?: T): Promise<events.BroadcastResponse>;
     }
 
     /**
@@ -171,6 +171,9 @@ declare namespace Neutralino {
             success: boolean;
             message: string;
         }
+
+        type BroadcastResponse = Omit<Response, 'message'>;
+
         /**
          * Registers a new event handler.
          * @param eventName Name of the event.
@@ -256,7 +259,7 @@ declare namespace Neutralino {
         function broadcast(event: 'extClientConnect', data: string): Promise<void>;
         function broadcast(event: 'extClientDisconnect', data: string): Promise<void>;
         function broadcast(event: 'extensionReady', data: string): Promise<void>;
-        function broadcast<T>(event: string, data?: T): Promise<Omit<Response, 'message'>>;
+        function broadcast<T>(event: string, data?: T): Promise<BroadcastResponse>;
     }
 
     /**
