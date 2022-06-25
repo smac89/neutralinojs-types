@@ -600,6 +600,20 @@ declare namespace Neutralino {
             menuItems?: TrayMenuItem[];
         }
 
+
+        interface SpawnProcessResult {
+
+            /**
+             * Process identifier.
+             */
+            pid: number
+            /**
+             * Virtual Neutralino-scoped pid.
+             */
+            id: number
+
+        }
+
         /**
          * Executes a command and returns the output.
          * @param command The command that is to be executed.
@@ -745,6 +759,34 @@ declare namespace Neutralino {
          * Neutralino.os.open('https://neutralino.js.org');
          */
         function open(url: string): Promise<void>;
+
+        /**
+         * Spawns a process.
+         * @param command Command to run.
+         * @returns Returns id (A virtual Neutralino-scoped pid) and pid (Operating system-level pid)
+         * @example
+         * let data = await Neutralino.os.spawnProcess('cat neko.txt');
+         */
+        function spawnProcess(command: string): Promise<SpawnProcessResult>
+
+        /**
+         * Updates a spawned process based on a provided action and data.
+         * @param id Neutralino-scoped process identifier..
+         * @param action An action to take. Accepts only the following values: `stdIn`, `stdInEnd` or `exit`
+         * @param data (optional): Additional data for the action. Send stardard input string if the action is `stdIn`.
+         * @returns Throws NE_OS_UNLTOUP if the process cannot be updated.
+         * @example
+         * await Neutralino.os.updateSpawnedProcess(nodeProc.id, 'stdIn', 'console.log(5 + 5);');
+         */
+        function spawnProcess(id: number, action: 'stdIn' | 'stdInEnd' | 'exit', data? : string): Promise<ErrorEvent>
+
+        /**
+         * Returns all spawned processes.
+         * @returns An array of `SpawnedProcess` objects.
+         * @example
+         * let processes = await Neutralino.getSpawnedProcesses();
+         */
+        function getSpawnedProcesses(): Promise<Array<SpawnProcessResult>>
     }
     /**
      * Neutralinojs has a built-in shared key-value storage. It's like a global [LocalStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage) for all Neutralinojs modes. `Neutralinos.storage` exposes methods for interacting with this storage feature.
